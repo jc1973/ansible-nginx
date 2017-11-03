@@ -1,0 +1,16 @@
+---
+# This playbook deploys jenkins
+
+- name: install packages utils all nodes
+  hosts: all
+#  remote_user: johcarte
+  remote_user: root
+  roles:
+    - common
+    - nginx
+# 
+# - name: install nginx on all nodes
+#   hosts: all
+#   remote_user: root
+#   roles:
+#     - nginx

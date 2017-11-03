@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  # use an ansible playbook to provision our server
+  name: ansible_playbook
+  # name of the host
+  hosts: test-kitchen
+  playbook: main.yml
+  # list of ansible galaxy requirements from the roles meta/main.yml
+  # requirements_path: dependencies.yml
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+#    driver:
+#      network:
+#      - [ "forwarded_port", {guest: 8080, host: 8080} ]
+  - name: centos-7
+#    driver:
+#      network:
+#      - [ "forwarded_port", {guest: 8080, host: 9080} ]
+
+suites:
+  # suites found at /test/integration/$test-name
+  - name: default

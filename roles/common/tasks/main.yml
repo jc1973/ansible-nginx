@@ -1,0 +1,44 @@
+---
+# This playbook useful packages
+
+- name: Add epel repository
+  yum: name=epel-release
+#  state: present
+  when: ansible_os_family == "RedHat"
+
+#- name: Import EPEL GPG key.
+#  rpm_key:
+#    key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}
+#    state: present
+#  when: ansible_os_family == "RedHat"
+
+
+- name: install packages
+  yum: name={{ item }} state=present
+  with_items:
+    - lsof
+    - vim
+    - htop
+    - iftop
+    - curl
+    - wget
+    - man
+    - ruby
+    - git
+    - mlocate
+    - bind-utils
+  when: ansible_os_family == "RedHat"
+
+- name: install packages
+  apt: name={{ item }} state=present
+  with_items:
+    - lsof
+    - vim
+    - htop
+    - iftop
+    - curl
+    - wget
+    - ruby
+    - mlocate
+    - git
+  when: ansible_os_family == "Debian"
