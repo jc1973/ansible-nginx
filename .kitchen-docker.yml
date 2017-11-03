@@ -4,7 +4,7 @@ driver:
 #  forward: 8080
 #  network:
 #  - [ "forwarded_port", {guest: 8080, host: 8080} ]
-  run_command: "/usr/sbin/nginx & ; /usr/sbin/sshd -D -o UseDNS=no -o UsePAM=no -o PasswordAuthentication=yes -o UsePrivilegeSeparation=no -o PidFile=/tmp/sshd.pid"
+#  run_command: "/usr/sbin/sshd -D -o UseDNS=no -o UsePAM=no -o PasswordAuthentication=yes -o UsePrivilegeSeparation=no -o PidFile=/tmp/sshd.pid"
 
 provisioner:
   # use an ansible playbook to provision our server
