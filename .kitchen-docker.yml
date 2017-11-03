@@ -16,6 +16,7 @@ provisioner:
   # requirements_path: dependencies.yml
   extra_vars:
     containerised: true
+    kitchen: true
 
 verifier:
   name: inspec
