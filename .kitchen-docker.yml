@@ -16,6 +16,8 @@ provisioner:
   extra_vars:
     containerised: true
 
+verifier:
+  name: inspec
 
 platforms:
   - name: ubuntu-16.04
