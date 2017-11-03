@@ -13,6 +13,9 @@ provisioner:
   playbook: site.yml
   # list of ansible galaxy requirements from the roles meta/main.yml
   # requirements_path: dependencies.yml
+  extra_vars:
+    containerised: true
+
 
 platforms:
   - name: ubuntu-16.04
