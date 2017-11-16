@@ -27,6 +27,7 @@
     - git
     - mlocate
     - bind-utils
+    - net-tools
   when: ansible_os_family == "RedHat"
 
 - name: install packages
