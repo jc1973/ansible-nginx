@@ -4,6 +4,16 @@
 - name: install nginx
   apt: name=nginx state=present
   tags: nginx
+  when: ansible_os_family == "Debian"
+
+- name: Add epel repository
+  yum: name=epel-release
+  when: ansible_os_family == "RedHat"
+
+- name: install nginx
+  yum: name=nginx state=present
+  tags: nginx
+  when: ansible_os_family == "RedHat"
 
 - template:
     src: nginx.conf.j2
