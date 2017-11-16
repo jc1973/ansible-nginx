@@ -18,6 +18,9 @@ provisioner:
 verifier:
   name: inspec
 
+transport:
+  max_ssh_sessions: 6
+
 platforms:
   - name: ubuntu-16.04
 #    driver:
