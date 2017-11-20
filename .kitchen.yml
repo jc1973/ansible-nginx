@@ -12,8 +12,9 @@ provisioner:
   # requirements_path: dependencies.yml
 # don't need to set this - as it is the default
 # variables set here take precedence
-#  extra_vars:
-#    containerised: false
+  extra_vars:
+    containerised: false
+    kitchen: true
 
 verifier:
   name: inspec
