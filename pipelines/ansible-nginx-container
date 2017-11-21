@@ -16,13 +16,13 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'env'
-                sh 'ls -trlah'
-                sh 'docker images'
-                sh 'docker ps'
+//                sh 'env'
+//                sh 'ls -trlah'
+//                sh 'docker images'
+//                sh 'docker ps'
                 sh './build-nginx-container.bash'
-                sh 'docker images'
-                sh 'docker ps'
+//                sh 'docker images'
+//                sh 'docker ps'
             }
         }
     }
