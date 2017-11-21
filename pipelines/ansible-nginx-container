@@ -7,7 +7,9 @@ pipeline {
     stages {
         stage('set up environmenet') {
             steps {
+                sh 'which python'
                 sh '.  /var/lib/jenkins/ansible-container/bin/activate'
+                sh 'which python'
             //    sh 'eval "$(chef shell-init bash)"'
                 sh 'which ruby'
             }
