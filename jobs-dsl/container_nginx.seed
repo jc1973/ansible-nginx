@@ -1,4 +1,4 @@
-pipelineJob('DSL_Pipeline') {
+pipelineJob('nginx_container') {
 
   def repo = 'https://github.com/jc1973/ansible-nginx'
 
