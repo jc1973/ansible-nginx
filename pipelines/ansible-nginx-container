@@ -18,6 +18,7 @@ pipeline {
             steps {
                 sh 'env'
                 sh 'ls -trlah'
+                sh 'build-nginx-container.bash'
             }
         }
     }
