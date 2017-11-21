@@ -1,6 +1,5 @@
 describe command('curl localhost') do
   its('stdout') { should match /elcome/ }
-  its('stdout') { should match /fizzbuck/ }
 end
 
 describe port(80) do
