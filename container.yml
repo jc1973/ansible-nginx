@@ -59,6 +59,7 @@ services:
     roles:
     - role: common
     - role: nginx
+    command: [ "/usr/sbin/nginx" ]
 #    containerised: true
 #services: {}
   # Add your containers here, specifying the base image you want to build from.
