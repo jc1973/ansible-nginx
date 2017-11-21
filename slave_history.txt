@@ -1,0 +1,114 @@
+    1  git clone https://github.com/jc1973/ansible-nginx.git
+    2  cd test
+    3  mkdir test
+    4  ls 
+    5  ls ansible-container/bin/activate
+    6  . ansible-container/bin/activate
+    7  cd test/
+    8  ansible-container init
+    9  ls -trlah 
+   10  cp * ../ansible-nginx/
+   11  cd ../ansible-nginx/ 
+   12  vi container.yml 
+   13  vi ~/.vimrc
+   14  vi container.yml 
+   15  ansible-container init
+   16  ansible-container init --force
+   17  vi container.yml 
+   18  ansible-container build
+   19  vi container.yml 
+   20  docker images
+   21  docker rmi 7cdc7d0fd7fb
+   22  docker images
+   23  ansible-container build
+   24  cat .kitchen.yml 
+   25  cat .kitchen-docker.yml 
+   26  ls -trlah 
+   27  vi container.yml 
+   28  vi ansible.cfg 
+   29  vi main.yml 
+   30  vi roles/nginx/vars/main.yml 
+   31  vi roles/nginx/tasks/main.yml 
+   32  ansible-container build
+   33  git st . 
+   34  git status
+   35  git checkout -- roles/nginx/vars/main.yml
+   36  docker images
+   37  vi container.yml 
+   38  ansible-container build
+   39  ansible-container --help
+   40  vi container.yml 
+   41  ls -trlah 
+   42  vi container.yml 
+   43  ansible-container build
+   44  vi container.yml 
+   45  ansible-container --help
+   46  ansible-container build --build
+   47  ansible-container build --help
+   48  ansible-container build ansible_options --e "containerised=true"
+   49  ansible-container build --e "containerised=true"
+   50  ansible-container --e "containerised=true" build
+   51  ls -trlah 
+   52  which pip
+   53  ~/ansible-container/bin/pip --version
+   54  ansible-container build
+   55  ansible-container build ansible_options --e "containerised=true"
+   56  ansible-container build ansible_options --e"containerised=true"
+   57  ansible-container build ansible_options --e 'containerised=true'
+   58  ansible-container build ansible_options ---e 'containerised=true'
+   59  ansible-container build ansible_options -- 'containerised=true'
+   60  ansible-container build -e 'containerised=true'
+   61  git pull .
+   62  git log . 
+   63  git checkout master
+   64  git pull
+   65  vi container.yml 
+   66  git st . 
+   67  git status . 
+   68  ansible-container build
+   69  git st . 
+   70  git status . 
+   71  git status . | grep     
+   72  git status . | grep '    '
+   73  git status . 
+   74  git checkout -b ansbile-container
+   75  git add . 
+   76  git commit -v
+   77  git config --global user.email "jenkins@virtbox.com"
+   78  git config --global user.name "JC1973'
+   79  git config --global user.name "JC1973"
+   80  git config --global user.email "jenkins@virtbox.com"
+   81  git commit -v
+   82  git push -u origin ansbile-container
+   83  git pull
+   84  git checkout master
+   85  git pull
+   86  git st . 
+   87  git status . 
+   88  docker images
+   89  exit
+   90  docker ps
+   91  docker images
+   92  /opt/chefdk/bin/chef gem list --local
+   93  . ansible-container/bin/activate
+   94  git clone https://github.com/jc1973/ansible-nginx.git
+   95  docker ps
+   96  docker images
+   97  history 
+   98  cd ansible-nginx/
+   99  ls -tralh 
+  100  ci container.yml 
+  101  vi container.yml 
+  102  ansible-container build
+  103  ansible-container --help
+  104  ansible-container run
+  105  docker ps 
+  106  git st . 
+  107  git add container.yml 
+  108  git commit -v
+  109  git push 
+  110  eval "$(chef shell-init bash)"
+  111  docker ps 
+  112  inspec exec test/integration/default/inspec/default_spec.rb -t docker://14e61cd5d4fa
+  113  which inspec
+  114  history > slave_history.txt
