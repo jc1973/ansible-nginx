@@ -18,7 +18,11 @@ pipeline {
             steps {
                 sh 'env'
                 sh 'ls -trlah'
-                sh 'build-nginx-container.bash'
+                sh 'docker images'
+                sh 'docker ps'
+                sh './build-nginx-container.bash'
+                sh 'docker images'
+                sh 'docker ps'
             }
         }
     }
