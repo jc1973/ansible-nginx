@@ -5,6 +5,13 @@ pipeline {
     agent { label 'swarm' }
 //    agent any 
     stages {
+        stage('set up environmenet') {
+            steps {
+                sh '.  /var/lib/jenkins/ansible-container/bin/activate'
+                sh 'eval "$(chef shell-init bash)"'
+                sh 'which ruby'
+            }
+        }
         stage('build') {
             steps {
                 sh 'env'
