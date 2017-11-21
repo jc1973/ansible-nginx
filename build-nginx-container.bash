@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/bash 
 
 . ansible-container/bin/activate
 eval "$(chef shell-init bash)"
