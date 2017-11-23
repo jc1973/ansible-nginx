@@ -2,8 +2,8 @@
 
 pipeline {
     // run jobs on agents with the label swarm
-//    agent { label 'swarm' }
-    agent any 
+    agent { label 'swarm' }
+//    agent any 
     stages {
         stage('set up environmenet') {
             steps {
