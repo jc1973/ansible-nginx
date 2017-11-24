@@ -3,9 +3,10 @@
 
 pipelineJob('nginx_container_param') {
 
-parameters {
-        nonStoredPasswordParam('myParameterName', 'my description')
-    }
+  parameters {
+    nonStoredPasswordParam('git_url', 'The url of the git repo which contains jenkins seed jobs (the one you clone)')
+    nonStoredPasswordParam('dsl_script', 'path to the jenkins job dsl seed job(s), e.g /jobs-dsl/*.seed')
+  }
 
   def repo = 'https://github.com/jc1973/ansible-nginx'
 
