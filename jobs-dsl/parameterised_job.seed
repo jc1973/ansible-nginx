@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 
-pipelineJob('nginx_container') {
+pipelineJob('nginx_container_param') {
 
 parameters {
         nonStoredPasswordParam('myParameterName', 'my description')
