@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 
-pipelineJob('nginx_container_param') {
+pipelineJob('param_test') {
 
   parameters {
     nonStoredPasswordParam('seed_git_url', 'The url of the git repo which contains jenkins seed jobs (the one you clone)')
