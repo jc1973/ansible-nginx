@@ -1,0 +1,43 @@
+#!/usr/bin/env groovy
+
+
+pipelineJob('nginx_container_param') {
+
+  parameters {
+    stringParam('SEED_GIT_URL', 'The url of the git repo which contains jenkins seed jobs (the one you clone)')
+    stringParam('SEED_DSL_SCRIPT', 'path to the jenkins job dsl seed job(s), e.g /jobs-dsl/*.seed')
+    stringParam('USERNAME', 'path to the jenkins job dsl seed job(s), e.g /jobs-dsl/*.seed')
+    nonStoredPasswordParam('PASSWORD', 'The url of the git repo which contains jenkins seed jobs (the one you clone)')
+
+    // nonStoredPasswordParam('seed_git_url', 'The url of the git repo which contains jenkins seed jobs (the one you clone)')
+    // nonStoredPasswordParam('seed_dsl_script', 'path to the jenkins job dsl seed job(s), e.g /jobs-dsl/*.seed')
+  }
+
+def repo = SEED_GIT_URL - 'https://' //  url='https://github.com/jc1973/ansible-nginx.git'
+def scm = url - 'https://'
+def checkout = 'https://' + USERNAME + ':' + PASSWORD + '@' + scm
+//  def repo = 'https://github.com/jc1973/ansible-ngin'
+
+  triggers {
+    scm('H/5 * * * *')
+  }
+  description("Pipeline for $checkout")
+
+  definition {
+    cpsScm {
+      scm {
+        git {
+          remote { url(checkout) }
+          branches('master', '**/feature*')
+          scriptPath(SEED_DSL_SCRIPT)
+          extensions { }  // required as otherwise it may try to tag the repo, which you may not want
+        }
+
+        // the single line below also works, but it
+        // only covers the 'master' branch and may not give you
+        // enough control.
+        // git(repo, 'master', { node -> node / 'extensions' << '' } )
+      }
+    }
+  }
+}
