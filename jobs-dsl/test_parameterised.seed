@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 
-pipelineJob('nginx_container_param') {
+pipelineJob('test_git_checkout') {
 
   parameters {
     stringParam('SEED_GIT_URL', 'The url of the git repo which contains jenkins seed jobs (the one you clone)')
