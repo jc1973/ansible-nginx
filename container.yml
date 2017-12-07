@@ -61,6 +61,8 @@ services:
     - role: nginx
     command: [ "/usr/sbin/nginx" ]
 #    containerised: true
+    ports:
+    - 7780:80
 #services: {}
   # Add your containers here, specifying the base image you want to build from.
   # To use this example, uncomment it and delete the curly braces after services key.
