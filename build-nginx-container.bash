@@ -22,7 +22,7 @@ DOCKER_IMAGE=$(docker ps 2>/dev/null | grep nginx | awk '{print $1}') || STATUS=
 
 # We do not need to install the chefDK for inspec to work
 TEST_CHEFDK=$(which chef)
-if [ $TEST_CHEFDK -eq 0 ]; then
+if [ "$TEST_CHEFDK" = "0" ]; then
   eval "$(chef shell-init bash)" || STATUS=1
   [ $STATUS  -eq 1 ] && echo cannot set up test environment
   [ $STATUS  -eq 1 ] && ansible-container destroy
