@@ -20,7 +20,7 @@ pipeline {
 //                sh 'ls -trlah'
                 sh 'docker images'
 //                sh 'docker ps'
-                sh './build-container.bash'
+                sh './docker/build-container.bash'
                 sh 'docker images'
 //                sh 'docker ps'
             }
