@@ -21,7 +21,7 @@ pipeline {
             kubernetesDeploy(
               credentialsType: 'KubeConfig',
               kubeConfig: [path: '/var/lib/jenkins/.kube'],
-              configs: 'config',
+              configs: 'k8s-hello-node-deployment.yaml',
               enableConfigSubstitution: true,
 // Below needs to be changed
 //                    credentialsType: 'SSH',
