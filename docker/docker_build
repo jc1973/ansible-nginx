@@ -5,24 +5,15 @@ pipeline {
     stages {
         stage('test environmenet') {
             steps {
-            //    sh 'which python'
-            //    sh '.  /var/lib/jenkins/ansible-container/bin/activate'
-            //    sh 'which python'
-            //    sh 'eval "$(chef shell-init bash)"'
                 sh 'env'
-            //    sh 'which ruby'
                 sh 'groups'
             }
         }
         stage('build') {
             steps {
-//                sh 'env'
-//                sh 'ls -trlah'
                 sh 'docker images'
-//                sh 'docker ps'
                 sh 'cd docker && ./build-container.bash'
                 sh 'docker images'
-//                sh 'docker ps'
             }
         }
     }
