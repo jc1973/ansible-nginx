@@ -2,6 +2,9 @@
 
 STATUS=0
 export DOCKER_HOST='tcp://192.168.99.101:2375'
+echo changed docker host
+echo getting images
+docker images
 #D_TAG=$(git rev-parse --short ${GIT_COMMIT})
 docker build -t hello-node:${GIT_COMMIT} . | tee build.info || STATUS=1
 IMAGE_ID=$(grep 'Successfully built' build.info | awk '{print $NF}')A

@@ -1,0 +1,30 @@
+pipeline {
+  // run jobs on agents with the label swarm
+  // agent { label 'swarm' }
+  agent any
+  stages {
+    stage('test environmenet') {
+      steps {
+        sh 'env'
+        sh 'groups'
+      }
+    }
+    stage('build') {
+      steps {
+        sh 'docker images'
+        sh 'cd docker && ./build_and_test_container.bash'
+        sh 'docker images'
+      }
+    }
+    stage('deploy') {
+      steps {
+        kubernetesDeploy(
+        credentialsType: 'KubeConfig',
+        kubeConfig: [path: '/var/lib/jenkins/.kube/config'],
+        configs: 'docker/k8s-hello-node-deployment.yaml',
+        enableConfigSubstitution: true,
+        )
+      }
+    }
+  }
+}
