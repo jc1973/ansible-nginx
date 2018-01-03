@@ -16,10 +16,8 @@ spec:
     spec:
       containers:
       - name: hello-node
-        image: johncartercap/hello-node:${GIT_COMMIT}
-#        imageId: e32c5854944b
+        # image: johncartercap/hello-node:${GIT_COMMIT}
+        image: johncartercap/hello-node:blahblah
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
-#        command: ["/usr/local/bin/jenkins_foreground_service.sh"]
-#        args: ["/usr/local/bin/jenkins_foreground_service.sh", "start"]
