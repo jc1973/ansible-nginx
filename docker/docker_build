@@ -20,7 +20,7 @@ pipeline {
           steps {
             kubernetesDeploy(
               credentialsType: 'KubeConfig',
-              kubeConfig: [path: '/var/lib/jenkins/.kube'],
+              kubeConfig: [path: '/var/lib/jenkins/.kube/config'],
               configs: 'docker/k8s-hello-node-deployment.yaml',
               enableConfigSubstitution: true,
 // Below needs to be changed
