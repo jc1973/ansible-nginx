@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
       - name: hello-node
-        # image: johncartercap/hello-node:${GIT_COMMIT}
-        image: johncartercap/hello-node:blahblah
+        image: johncartercap/hello-node:${GIT_COMMIT}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
