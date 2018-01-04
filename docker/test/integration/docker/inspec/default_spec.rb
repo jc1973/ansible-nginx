@@ -1,5 +1,5 @@
 describe command('curl localhost:8080') do
-  its('stdout') { should match /FAIL/ }
+  its('stdout') { should match /Hello/ }
 end
 
 describe port(8080) do
