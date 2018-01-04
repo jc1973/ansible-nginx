@@ -2,6 +2,7 @@
 
 STATUS=0
 export DOCKER_HOST='tcp://192.168.99.101:2375'
+env
 echo changed docker host
 echo getting images
 docker images
@@ -18,7 +19,7 @@ while true; do
 done
 echo "Retrieved  CONTAINER ID of hello-node:${GIT_COMMIT}"
 echo "CONTAINER_ID = ${CONTAINER_ID}"
-inspec exec test/integration/docker/inspec --no-colour -t docker://${CONTAINER_ID} || STATUS=1
+inspec exec test/integration/docker/inspec --no-color -t docker://${CONTAINER_ID} || STATUS=1
 echo "Stopping the running container hello-node:${GIT_COMMIT}"
 docker kill ${CONTAINER_ID}
 exit 1
