@@ -9,7 +9,7 @@ docker images
 docker build -t hello-node:${GIT_COMMIT} . | tee build.info || STATUS=1
 IMAGE_ID=$(grep 'Successfully built' build.info | awk '{print $NF}')
 echo "Testing Image hello-node:${GIT_COMMIT}"
-docker run hello-node:${GIT_COMMIT}
+docker run hello-node:${GIT_COMMIT} &
 echo "Getting CONTAINER ID of hello-node:${GIT_COMMIT}"
 CONTAINER_ID=$(DOCKER_HOST='tcp://192.168.99.101:2375' docker ps | grep "hello-node:${GIT_COMMIT}" | awk '{print $1}')
 echo "CONTAINER_ID = ${CONTAINER_ID}"
