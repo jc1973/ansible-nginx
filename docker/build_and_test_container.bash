@@ -22,8 +22,10 @@ echo "CONTAINER_ID = ${CONTAINER_ID}"
 inspec exec test/integration/docker/inspec --no-color -t docker://${CONTAINER_ID} || STATUS=1
 echo "Stopping the running container hello-node:${GIT_COMMIT}"
 docker kill ${CONTAINER_ID}
-exit 1
+[ $STATUS  -eq 1 ] && echo tests failed
+[ $STATUS  -eq 1 ] && exit $STATUS
+
 # kill -9 $(ps -aef | grep "hello-node:${GIT_COMMIT}" | grep -v 'grep' | awk '{print $2'})
 
-#docker tag ${IMAGE_ID} johncartercap/hello-node:${GIT_COMMIT}
-#docker push johncartercap/hello-node
+docker tag ${IMAGE_ID} johncartercap/hello-node:${GIT_COMMIT}
+docker push johncartercap/hello-node
