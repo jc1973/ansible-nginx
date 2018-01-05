@@ -1,0 +1,57 @@
+#!/bin/bash
+
+usage() { echo "usage $0 -f <config-file> [-t timeout (Default 10seconds)]" 2>&1; exit 1; }
+
+[ -z $1 ] && usage
+
+while getopts ":f:t:" o; do
+  case "${o}" in
+    f)
+      CONFIG=${OPTARG}
+      ;;
+    t) 
+      TIMEOUT=${OPTARG}
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+[ -z ${TIMEOUT} ] && TIMEOUT=10
+
+#[ -f ${CONFIG} ] || echo "Config file: ${CONFIG} not in path"
+#[ -f ${CONFIG} ] || exit 1
+
+echo "config = ${CONFIG}"
+echo "timeout = ${TIMEOUT}"
+
+echo "deploying..."
+echo "executing: kubectl apply -f ${CONFIG} --record"
+
+# READ IN CONFIG FILE to find name of deployment
+# This should be in kind: Deployment, metadata: , name: value
+DEPLOYMENT=""
+METADATA=""
+NAME=""
+
+while read -r line
+do
+  [[ $line == *"kind: Deployment"* ]]  && DEPLOYMENT=true
+  [[ $line == *"metadata:"* ]] && METADATA=true
+  [[ $line == *"name:"* ]]  && NAME=true
+  [ -n "${DEPLOYMENT}" ] && [ -n "${METADATA}" ] && [ -n "${NAME}" ] && echo $line
+  [ -n "${DEPLOYMENT}" ] && [ -n "${METADATA}" ] && [ -n "${NAME}" ] && break
+done < "${CONFIG}"
+
+echo "checking deployment: ${DEPLOYING}"
+
+for (( i = 1; i <= ${TIMEOUT}; i++ ))
+do
+  echo -n .
+  sleep 1
+done
+echo 
+
+
+
