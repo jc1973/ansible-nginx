@@ -47,12 +47,12 @@ echo "checking deployment: ${DEPLOY_NAME}"
 STATUS=1
 for (( i = 1; i <= ${TIMEOUT}; i++ ))
 do
+  sleep 1
   ROLLOUT_STATUS=$(kubectl rollout status deployments ${DEPLOY_NAME} --watch=false)
   [[ ${ROLLOUT_STATUS} == *"Waiting for rollout to finish:"* ]] && STATUS=1
   [[ ${ROLLOUT_STATUS} != *"Waiting for rollout to finish:"* ]] && STATUS=0
   [ $STATUS -eq 0 ] && break
   echo -n .
-  sleep 1
 done
 echo
 echo ${ROLLOUT_STATUS}
