@@ -40,16 +40,17 @@ do
   [[ $line == *"kind: Deployment"* ]]  && DEPLOYMENT=true
   [[ $line == *"metadata:"* ]] && METADATA=true
   [[ $line == *"name:"* ]]  && NAME=true
-  [ -n "${DEPLOYMENT}" ] && [ -n "${METADATA}" ] && [ -n "${NAME}" ] && echo $line
+  [ -n "${DEPLOYMENT}" ] && [ -n "${METADATA}" ] && [ -n "${NAME}" ] && DEPLOY_NAME=$(echo $line | awk '{print $NF}')
   [ -n "${DEPLOYMENT}" ] && [ -n "${METADATA}" ] && [ -n "${NAME}" ] && break
 done < "${CONFIG}"
 
-echo "checking deployment: ${DEPLOYING}"
+echo "checking deployment: ${DEPLOY_NAME}"
 
 for (( i = 1; i <= ${TIMEOUT}; i++ ))
 do
   echo -n .
   sleep 1
+  kubectl rollout status deployments ${DEPLOY_NAME} --watch=false && break
 done
 echo 
 
