@@ -20,14 +20,12 @@ done
 
 [ -z ${TIMEOUT} ] && TIMEOUT=10
 
-#[ -f ${CONFIG} ] || echo "Config file: ${CONFIG} not in path"
-#[ -f ${CONFIG} ] || exit 1
-
-echo "config = ${CONFIG}"
-echo "timeout = ${TIMEOUT}"
+[ -f ${CONFIG} ] || echo "Config file: ${CONFIG} not in path"
+[ -f ${CONFIG} ] || exit 1
 
 echo "deploying..."
 echo "executing: kubectl apply -f ${CONFIG} --record"
+kubectl apply -f ${CONFIG} --record
 
 # READ IN CONFIG FILE to find name of deployment
 # This should be in kind: Deployment, metadata: , name: value
@@ -46,13 +44,23 @@ done < "${CONFIG}"
 
 echo "checking deployment: ${DEPLOY_NAME}"
 
+STATUS=1
 for (( i = 1; i <= ${TIMEOUT}; i++ ))
 do
+  ROLLOUT_STATUS=$(kubectl rollout status deployments ${DEPLOY_NAME} --watch=false)
+  [[ ${ROLLOUT_STATUS} == *"Waiting for rollout to finish:"* ]] && STATUS=1
+  [[ ${ROLLOUT_STATUS} != *"Waiting for rollout to finish:"* ]] && STATUS=0
+  [ $STATUS -eq 0 ] && break
   echo -n .
   sleep 1
-  kubectl rollout status deployments ${DEPLOY_NAME} --watch=false && break
 done
-echo 
+echo
+echo ${ROLLOUT_STATUS}
+
+if [ $STATUS -ne 0 ]; then
+  echo "Rolling back ${DEPLOY_NAME}"
+  kubectl rollout undo deployment/${DEPLOY_NAME}
+fi
 
 
-
+exit $STATUS
