@@ -27,33 +27,44 @@ echo "deploying..."
 echo "executing: kubectl apply -f ${CONFIG} --record"
 kubectl apply -f ${CONFIG} --record
 
-# READ IN CONFIG FILE to find name of deployment
-# This should be in kind: Deployment, metadata: , name: value
-DEPLOYMENT=""
-METADATA=""
-NAME=""
+# Check to see if config is json - if so get the value
+DEPLOY_NAME=$(cat ${CONFIG} | jq '.metadata.name' 2>/dev/null | sed 's/"//g;')
 
-while read -r line
-do
-  [[ $line == *"kind: Deployment"* ]]  && DEPLOYMENT=true
-  [[ $line == *"metadata:"* ]] && METADATA=true
-  [[ $line == *"name:"* ]]  && NAME=true
-  [ -n "${DEPLOYMENT}" ] && [ -n "${METADATA}" ] && [ -n "${NAME}" ] && DEPLOY_NAME=$(echo $line | awk '{print $NF}')
-  [ -n "${DEPLOYMENT}" ] && [ -n "${METADATA}" ] && [ -n "${NAME}" ] && break
-done < "${CONFIG}"
+# Config is not json - results in empty string as the value
+if [ "${DEPLOY_NAME}" = "" ]; then
+
+  # READ IN CONFIG FILE to find name of deployment
+  # This should be in metadata: , name: value
+  METADATA=""
+  NAME=""
+
+# Try is as yaml 
+  while read -r line
+  do
+    [[ $line == *"metadata:"* ]] && METADATA=true
+    [[ $line == *"name:"* ]]  && NAME=true
+    [ -n "${METADATA}" ] && [ -n "${NAME}" ] && DEPLOY_NAME=$(echo $line | awk '{print $NF}')
+    [ -n "${METADATA}" ] && [ -n "${NAME}" ] && break
+  done < "${CONFIG}"
+fi
 
 echo "checking deployment: ${DEPLOY_NAME}"
 
-STATUS=1
-for (( i = 1; i <= ${TIMEOUT}; i++ ))
-do
-  sleep 1
-  ROLLOUT_STATUS=$(kubectl rollout status deployments ${DEPLOY_NAME} --watch=false)
-  [[ ${ROLLOUT_STATUS} == *"Waiting for rollout to finish:"* ]] && STATUS=1
-  [[ ${ROLLOUT_STATUS} == *"successfully rolled out"* ]] && STATUS=0
-  [ $STATUS -eq 0 ] && break
-  echo -n .
-done
+if [ "${DEPLOY_NAME}" = "" ]; then
+  echo "unable to get deployment name, able to check status"
+  exit 0
+else
+  STATUS=1
+  for (( i = 1; i <= ${TIMEOUT}; i++ ))
+  do
+    sleep 1
+    ROLLOUT_STATUS=$(kubectl rollout status deployments ${DEPLOY_NAME} --watch=false)
+    [[ ${ROLLOUT_STATUS} == *"Waiting for rollout to finish:"* ]] && STATUS=1
+    [[ ${ROLLOUT_STATUS} == *"successfully rolled out"* ]] && STATUS=0
+    [ $STATUS -eq 0 ] && break
+    echo -n .
+  done
+fi
 echo
 echo ${ROLLOUT_STATUS}
 
