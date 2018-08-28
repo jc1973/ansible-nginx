@@ -1,0 +1,55 @@
+Directory Structure
+===================
+
+The directory structure of the [deployment_configs](..) repository can best be
+thought of containing these separate parts:
+
+ - [**Component Configuration**](#component-configuration)
+ - [**Environment Configuration**](#environment-configuration)
+
+```yaml
+---
+driver:
+  name: vagrant
+
+provisioner:
+  # use an ansible playbook to provision our server
+  name: ansible_playbook
+  # name of the host
+  hosts: test-kitchen
+  playbook: main.yml
+  # list of ansible galaxy requirements from the roles meta/main.yml
+  # requirements_path: dependencies.yml
+# don't need to set this - as it is the default
+# variables set here take precedence
+  extra_vars:
+    containerised: false
+    kitchen: true
+
+verifier:
+  name: inspec
+
+transport:
+  max_ssh_sessions: 6
+
+platforms:
+  - name: ubuntu-16.04
+#    driver:
+#      network:
+#      - [ "forwarded_port", {guest: 8080, host: 8080} ]
+  - name: centos-7
+#    driver:
+#      network:
+#      - [ "forwarded_port", {guest: 8080, host: 9080} ]
+
+suites:
+  # suites found at /test/integration/$test-name
+  - name: default
+  ```
+
+
+##### Component Configuration
+
+##### Environment Configuration
+
+
